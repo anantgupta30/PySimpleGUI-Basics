@@ -3,7 +3,7 @@ sg.theme("green")
 # Content to be displayed in the window
 layout=[[sg.Text("Divisibility Checker\n\n",font=('blue',50),justification="Center",size=(22,1),text_color="Darkgreen")],
         [sg.Text("\n\nThis program is made to check the divisibility of a number",font=("",25),size=(250,5),auto_size_text=True,justification="center",text_color="black")],
-        [sg.Text("\n\nEnter the number to be checked:  ",font=("",18),size=(40,5),auto_size_text=True,justification="right"),sg.Input(key="inp1",do_not_clear=False,focus=True),sg.Text(" "),sg.Button("Enter",image_filename="Button image.png",font=("",18),auto_size_button=True,key="k")],
+        [sg.Text("\n\nEnter the number to be checked:  ",font=("",18),size=(40,5),auto_size_text=True,justification="right"),sg.Input(key="inp1",do_not_clear=False,focus=True),sg.Text(" "),sg.Button("Enter",image_filename="Button image.png",font=("",18),auto_size_button=True,key="k",disabled=True)],
         [sg.Text("\t\t\t\t"),sg.Checkbox("Check divisibility by 2",key="check",font=("",18),size=(40,5)),sg.Checkbox("Check divisibility by 3",key="check1",font=("",18),size=(40,5))],
         [sg.Text("\t\t\t\t"),sg.Checkbox("Check divisibility by 5",key="check2",font=("",18),size=(40,5)),sg.Checkbox("Display all factors of the number",key="check3",font=("",18),size=(40,5))]]
 # Creating window
@@ -12,18 +12,18 @@ while True:     # event loop
     e,v=window.read()
     if e is None:
         break
+    try:
+        inp = int(v['inp1'])
+    except:
+        window.FindElement("k").update(disabled=True)
+        continue
+    window.FindElement("k").update(disabled=False)
     if e=="k" or e=="\r":
-        try:
-            inp = int(v['inp1'])
-        except:
-            inp1 = "Unkown Text"
-            window.FindElement('inp1').update(inp1)
-            continue
-        result2 = ""
-        result1 = ""
         result = ""
+        result1 = ""
+        result2 = ""
         result3 = ""
-        if v['check'] == True:
+        if v['check'] == True :
             if inp % 2 == 0:
                 result = "Divisible by 2"
             else:
